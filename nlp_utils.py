@@ -4,11 +4,48 @@ import re
 from math import isfinite
 from word2number import w2n
 from typing import Union
+from nltk.tokenize import word_tokenize
+# from nltk.tokenize.stanford import StanfordTokenizer
+from nltk.stem import WordNetLemmatizer
+from nltk.stem.snowball import SnowballStemmer
 from .contraction import CONTRACTION_MAP
+from .regex import remove_punctuation
+wordnet_lemmatizer = WordNetLemmatizer()
+snowball_stemmer = SnowballStemmer('english')
 
-def remove_multiple_spaces(text):
-    "Compress multi whitespace into single space."
-    return re.sub("\s\s+", " ", text)
+
+def tokenize(text: str, with_contraction: bool=False,
+              with_punc: bool=True) -> str:
+    """
+    with_punc: (optional) whether to include punctuation as separate tokens.
+    with_contraction: (optional) whether to replace contraction words into
+                multigrams before tokenizing.
+    Returns: list of word tokens.
+    """
+    if with_contraction:
+        text = expand_contractions(text)
+    tokens = word_tokenize(text)
+    if with_punc:
+        return tokens
+    else:
+        return [word if word.startswith("'") else remove_punctuation(word)
+                for word in tokens if remove_punctuation(word)]
+
+
+def lemmatize(text: str, method: str='wordnet') -> str:
+    """Apply lemmatizer/Stemmer to the words in text.
+    It can be operated with either WordNetLemmatizer or Snowball Stemmer
+    Returns: text with lemmatized tokens.
+    """
+    tokens = tokenize(text)
+    if method == 'wordnet':
+        cleaned_tokens = [wordnet_lemmatizer.lemmatize(token) for token in tokens]
+    elif method == 'snowball':
+        cleaned_tokens = [snowball_stemmer.stem(token) for token in tokens]:
+    else:
+        raise Exception("Error - lemmatizer method not supported")
+
+    return ' '.join(cleaned_tokens)
 
 
 def convert_text_to_number(text: str) -> Union[int, float]:
