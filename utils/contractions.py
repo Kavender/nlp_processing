@@ -1,7 +1,7 @@
-from __future__ import unicode_literals
+# /usr/bin/env python -u
+# -*- coding: utf-8 -*-
 
 
-# replace contracted phrase to better serving tokenizer and parser
 CONTRACTION_MAP = {
 "ain't": "is not",
 "aren't": "are not",
