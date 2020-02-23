@@ -23,8 +23,8 @@ from spacy.util import filter_spans
 
 
 class EntityExtractor(BaseExtractor):
-    """ Extract an ordered sequence of named entities (PERSON, ORG, LOC, etc.) from
-    a ``Doc``, optionally filtering by entity types and frequencies"""
+    """ Extract an ordered sequence of named entities (PERSON, ORG, LOC, etc.) from a ``Doc``,
+    optionally filtering by entity types and frequencies"""
 
 
     def __init__(self, nlp, **kwargs) -> None:
@@ -64,9 +64,8 @@ class EntityExtractor(BaseExtractor):
         return filter_spans(entity_spans)
 
     def extract(self, text: str, on_match=None) -> List[Span]:
-        """Extract entities with predefined patterns and consolidate with entities
-        recognized by `ner` model if applicable, return entities recognized from
-        modified pipeline.
+        """Extract entities with predefined patterns and consolidate with entitiesvrecognized by `ner` model
+        if applicable, return entities recognized from modified pipeline.
 
         Parameters
         ----------

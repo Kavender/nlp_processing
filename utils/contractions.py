@@ -1,6 +1,4 @@
-# /usr/bin/env python -u
 # -*- coding: utf-8 -*-
-
 
 CONTRACTION_MAP = {
 "ain't": "is not",

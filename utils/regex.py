@@ -14,5 +14,11 @@ REGEX_URL = re.compile(r'\b(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256
 REGEX_EMAIL = re.compile(r"(?:mailto:)?"
                          r"(?:^|(?<=[^\w@.)]))([\w+-](\.(?!\.))?)*?[\w+-]@(?:\w-?)*?\w+(\.([a-z]{2,})){1,3}"
                          r"(?:$|(?=\b))", flags=re.UNICODE | re.IGNORECASE)
+REGEX_VALID_EMAIL = re.compile(r"\b[\w.!#$%&’*+\/=?^`{|}~-]+@[\w-]+(?:\.[\w-]+)*\b", flags=re.UNICODE | re.IGNORECASE)
+REGEX_PASSWORD = re.compile(r"(?=^.{6,}$)((?=.*\w)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[|!"$%&\/\(\)\?\^\'\\\+\-\*]))^.*",
+                            flags=re.UNICODE | re.IGNORECASE)
+REGEX_IPV4_ADDRESS = re.complie(r"\b(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\b",
+                                flags=re.UNICODE | re.IGNORECASE)
+REGEX_SSN_SIMPLE = re.complie(r"^((?<area>[\d]{3})[-][\d]{2}[-][\d]{4})$", flags=re.UNICODE | re.IGNORECASE)
 
 REGEX_DIGITA_AROUND_COMMON = re.compile(r'(\d)[?,:;!](\d)', flags=re.UNICODE | re.IGNORECASE)
