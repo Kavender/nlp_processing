@@ -26,9 +26,9 @@ def extract_keywords(sentence):
 
 if __name__ == "__main__":
     combined_text = " ".join([sent_text, sent_text1, sent_text2, sent_text3])
-    # entities = extract_entity_from_sentence(sent_text1)
-    # print([(ent, ent.label_) for ent in entities])
-    # print("-----")
+    entities = extract_entity_from_sentence(sent_text1)
+    print([(ent, ent.label_) for ent in entities])
+    print("-----")
 
     phrases = extract_keywords(combined_text)
     for phrase in phrases:

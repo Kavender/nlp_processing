@@ -81,7 +81,7 @@ class EntityExtractor(BaseExtractor):
             Recognized entities from `rule`, `ner`, `matcher` component.
 
         """
-        if len(self.ruler) > 0:
+        if len(self.ruler) > 0 and not self.nlp.has_pipe('entity_ruler'):
             self.nlp.add_pipe(self.ruler)
         doc = self.nlp(text)
         matches = self.matcher(doc)
