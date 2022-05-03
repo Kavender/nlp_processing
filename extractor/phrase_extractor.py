@@ -59,7 +59,7 @@ class PhraseExtractor(BaseExtractor):
             if is_valid:
                 dict_attr[node_stat(node.token)].append(node.wordnum)
         self.graph.add_nodes_from(dict_attr.keys())
-        nx.set_node_attributes(self.graph, values = dict_attr, name='wordnum')
+        nx.set_node_attributes(self.graph, values=dict_attr, name='wordnum')
         # add edge to the graph
         for i, (node, is_valid) in enumerate(nodes):
             node_token = node.token

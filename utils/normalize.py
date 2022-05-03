@@ -19,9 +19,19 @@ def remove_punctuations(text: str, punctuations: str=ENGLISH_PUNCTUATIONS) -> st
     return text.translate(translator)
 
 
+def split_and_keep_punctuation(text: str) -> List[str]:
+    """Split text on punctuation and both string and punctuation components."""
+    text_splits = re.split('([^a-zA-Z0-9])', text)
+    return [sub_text.strip() for sub_text in text_splits if sub_text.strip()]
+
+
 def remove_consecutive_punctuation(text: str) -> str:
     "Remove consecutive punctuations, such as ..."
     return REGEX_CONSECUTIVE_PUNCTUATION.sub('', text)
+
+
+def remove_recurring_chars(text):
+    return re.sub(r'(.)\1+', r'\1', text)
 
 
 def remove_nonascii_chars(text: str) -> str:
@@ -30,9 +40,9 @@ def remove_nonascii_chars(text: str) -> str:
     return "".join(letters).strip()
 
 
-def remove_stopwords(text: str, tokenizer: callable, stopwords: Iterable[str],
+def remove_stopwords_from_text(text: str, tokenizer: callable, stopwords: Iterable[str],
                      check_lower_case=False):
-    # instead of join by with hyphen, it's better to call the tokenizer without split on hyphen
+    # # instead of join by with hyphen, it's better to call the tokenizer without split on hyphen
     tokens = tokenizer.tokenize(text)
     tokens = [token.strip() for token in tokens]
     if check_lower_case:
@@ -72,19 +82,13 @@ def normalize_hyphenated_words(text: str, keep_hyphen: bool=True):
         return REGEX_HYPHENATED_WORD.sub(r"\1\2", text)
 
 
-def split_and_keep_punctuation(text: str) -> List[str]:
-    """Split text on punctuation and both string and punctuation components."""
-    text_splits = re.split('([^a-zA-Z0-9])', text)
-    return [sub_text.strip() for sub_text in text_splits if sub_text.strip()]
-
-
 def expand_contractions(text: str, contraction_mapping=CONTRACTION_MAP) -> str:
     """Expand constraction expression in sentence to multigrams, to better
     catch the meaning before tokenziation.
     e.g. `hasn't` to `has not` to realize the negation signal."""
     contractions_pattern = re.compile('({})'.format('|'.join(contraction_mapping.keys())),
                                       flags=re.IGNORECASE|re.DOTALL)
-    def expand_match(contraction):
+    def _expand_match(contraction):
         match = contraction.group(0)
         first_char = match[0]
         expanded_contraction = contraction_mapping.get(match)\
@@ -93,6 +97,7 @@ def expand_contractions(text: str, contraction_mapping=CONTRACTION_MAP) -> str:
         expanded_contraction = first_char+expanded_contraction[1:]
         return expanded_contraction
 
-    expanded_text = contractions_pattern.sub(expand_match, text)
+    expanded_text = contractions_pattern.sub(_expand_match, text)
     expanded_text = re.sub("'", "", expanded_text)
     return expanded_text
+

@@ -6,6 +6,21 @@ import numpy
 from sklearn.feature_extraction.text import CountVectorizer
 
 
+def normalize_data_range(num: float, input_min: float, input_max: float, output_min: float, output_max:float) -> float:
+    """Convert the value of input from input range to output range
+    """
+    if input_min == input_max or output_min == output_max:
+        raise VauleError('Please provide a legit boundary from input/output distributinon')
+    return (num - input_min) * (output_max - output_min) / (input_max - input_min) + output_min
+
+
+
+def rolling_pairs(seq: Iterable[Any]) -> List[Any]:
+    """Get pair of items seq-> [(item0, item1), (item1, item2), ...(itemN-1, itemN)]
+    """
+    return list(tuple(iterable[i : i + 2]) for i in range(len(iterable) - 1))
+
+
 def overlap_items(seq1: Iterable[Any], seq2: Iterable[Any]) -> Set[Any]:
     "Return the overlapped items between two sequences of data"
     return set(seq1).intersection(seq2)
@@ -37,7 +52,7 @@ def filter_counter(min_freq: int, replaced_token: str) -> Counter:
     total counts."""
     freq = 0
     filtered = Counter({})
-    for token, count in self.items():
+    for token, count in filtered.items():
         if count < min_freq:
             freq += count
         else:

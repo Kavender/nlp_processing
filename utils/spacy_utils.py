@@ -1,5 +1,22 @@
 # coding: utf-8
 from spacy.tokens import Token, Span, Doc
+from spacy.language import Language as SpacyModelType
+from spacy.cli.download import download as spacy_download
+
+
+def get_spacy_model(spacy_model_name: str,  pipeline_disabled=["vectors", "textcat"]):
+    try:
+        import spacy
+        spacy_model = spacy.load(spacy_model_name, disable=pipeline_disabled)
+    except (ImportError, OSError) as e:
+        logger.error('spaCy is not installed or the model is unavailale.')
+        spacy_download(spacy_model_name)
+        # Import the downloaded model module directly and load from there
+        spacy_model_module = __import__(spacy_model_name)
+        spacy_model = spacy_model_module.load(disable=disable)
+    return spacy_model
+
+
 
 
 def is_alphanum(token: Token, valid_punctuation_marks='-') -> bool:

@@ -20,5 +20,13 @@ REGEX_PASSWORD = re.compile(r"(?=^.{6,}$)((?=.*\w)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-
 REGEX_IPV4_ADDRESS = re.complie(r"\b(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\b",
                                 flags=re.UNICODE | re.IGNORECASE)
 REGEX_SSN_SIMPLE = re.complie(r"^((?<area>[\d]{3})[-][\d]{2}[-][\d]{4})$", flags=re.UNICODE | re.IGNORECASE)
+# from _regex.py
+REGEX_DIV = re.compile('.*[career|careers|jobs|job|description|responsibility|experience|skill|qualification]-.*',
+                       re.IGNORECASE)
+REGEX_JOB_KEYWORDS = re.compile(r'[career|careers|jobs|job|description|responsibility|experience|skill|qualification]',
+                                re.IGNORECASE)
+
 
 REGEX_DIGITA_AROUND_COMMON = re.compile(r'(\d)[?,:;!](\d)', flags=re.UNICODE | re.IGNORECASE)
+
+REGEX_NON_ALPHA = re.compile("^[^a-zA-Z0-9].*$")

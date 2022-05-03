@@ -34,7 +34,7 @@ class EntityExtractor(BaseExtractor):
 
     def set_entity_patterns(self, patterns:Union[str, List[Dict[str, str]]], label: str):
         patterns = [self.nlp.make_doc(pattern) for pattern in patterns]
-        self.matcher.add(label, None, *patterns)
+        self.matcher.add(label, None, patterns)
 
     def set_entity_rules(self, patterns: Union[str, List[Dict[str, str]]], label: str):
         """e.g "pattern": "MyCorp Inc.", "pattern": [{"LOWER": "san"}, {"LOWER": "francisco"}]
