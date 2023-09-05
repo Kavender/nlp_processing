@@ -1,6 +1,7 @@
 from gensim.downloader import api
 
-def load_gensim_embedding(model_name = 'glove-wiki-gigaword-200'):
+
+def load_gensim_embedding(model_name="glove-wiki-gigaword-200"):
     """Load gensim model word embeddings.
         Return:
         wv_from_bin: Word embeddings from model loaded.

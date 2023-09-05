@@ -6,13 +6,12 @@ import numpy
 from sklearn.feature_extraction.text import CountVectorizer
 
 
-def normalize_data_range(num: float, input_min: float, input_max: float, output_min: float, output_max:float) -> float:
+def normalize_data_range(num: float, input_min: float, input_max: float, output_min: float, output_max: float) -> float:
     """Convert the value of input from input range to output range
     """
     if input_min == input_max or output_min == output_max:
-        raise VauleError('Please provide a legit boundary from input/output distributinon')
+        raise VauleError("Please provide a legit boundary from input/output distributinon")
     return (num - input_min) * (output_max - output_min) / (input_max - input_min) + output_min
-
 
 
 def rolling_pairs(seq: Iterable[Any]) -> List[Any]:
@@ -29,7 +28,7 @@ def overlap_items(seq1: Iterable[Any], seq2: Iterable[Any]) -> Set[Any]:
 def consecutive(data: Iterable[int], stepsize=1) -> Iterable[List[int]]:
     """Split the sequence of data if difference between two neighbors
     is greater than stepsize."""
-    return numpy.split(data, numpy.where(numpy.diff(data) > stepsize)[0]+1)
+    return numpy.split(data, numpy.where(numpy.diff(data) > stepsize)[0] + 1)
 
 
 def count_tokens(tokens: List[str], to_lower=False, counter=None) -> Counter:
@@ -63,11 +62,10 @@ def filter_counter(min_freq: int, replaced_token: str) -> Counter:
 
 def get_top_n_words(corpus, n=None):
     vec = CountVectorizer().fit(corpus)
-    #vec1 = CountVectorizer(ngram_range=(2,2),
-   #         max_features=2000).fit(corpus) #get bigrams
+    # vec1 = CountVectorizer(ngram_range=(2,2),
+    #         max_features=2000).fit(corpus) #get bigrams
     bag_of_words = vec.transform(corpus)
     sum_words = bag_of_words.sum(axis=0)
-    words_freq = [(word, sum_words[0, idx]) for word, idx in
-                   vec.vocabulary_.items()]
-    words_freq =sorted(words_freq, key = lambda x: x[1], reverse=True)
+    words_freq = [(word, sum_words[0, idx]) for word, idx in vec.vocabulary_.items()]
+    words_freq = sorted(words_freq, key=lambda x: x[1], reverse=True)
     return words_freq[:n]

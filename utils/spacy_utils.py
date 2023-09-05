@@ -4,12 +4,13 @@ from spacy.language import Language as SpacyModelType
 from spacy.cli.download import download as spacy_download
 
 
-def get_spacy_model(spacy_model_name: str,  pipeline_disabled=["vectors", "textcat"]):
+def get_spacy_model(spacy_model_name: str, pipeline_disabled=["vectors", "textcat"]):
     try:
         import spacy
+
         spacy_model = spacy.load(spacy_model_name, disable=pipeline_disabled)
     except (ImportError, OSError) as e:
-        logger.error('spaCy is not installed or the model is unavailale.')
+        logger.error("spaCy is not installed or the model is unavailale.")
         spacy_download(spacy_model_name)
         # Import the downloaded model module directly and load from there
         spacy_model_module = __import__(spacy_model_name)
@@ -17,9 +18,7 @@ def get_spacy_model(spacy_model_name: str,  pipeline_disabled=["vectors", "textc
     return spacy_model
 
 
-
-
-def is_alphanum(token: Token, valid_punctuation_marks='-') -> bool:
+def is_alphanum(token: Token, valid_punctuation_marks="-") -> bool:
     """Check whether token contains only alpha-numeric characters and valid punctuation. Expand from spacy's
     `Token.is_digit` and `Token.is_alpha` attributes.
 
@@ -37,5 +36,5 @@ def is_alphanum(token: Token, valid_punctuation_marks='-') -> bool:
         characters and valid punctuation, otherwise, return False.
     """
     for punct in valid_punctuation_marks.split():
-        word = token.lemma_.replace(punct, '')
+        word = token.lemma_.replace(punct, "")
     return word.isalnum()

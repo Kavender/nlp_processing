@@ -8,7 +8,8 @@ def get_lemma(word):
         return word
     else:
         return lemma
-    
+
+
 def get_word_synsets(word):
     return wordNet.synsets(word, pos=None)
 

@@ -101,3 +101,22 @@ def expand_contractions(text: str, contraction_mapping=CONTRACTION_MAP) -> str:
     expanded_text = re.sub("'", "", expanded_text)
     return expanded_text
 
+
+def process_tweet(tweet: str) -> str:
+    '''
+    Input: 
+        tweet: a string containing a tweet
+    Output:
+        tweets_clean: a list of words containing the processed tweet
+    
+    '''
+    # remove stock market tickers like $GE
+    tweet = re.sub(r'\$\w*', '', tweet)
+    # remove old style retweet text "RT"
+    tweet = re.sub(r'^RT[\s]+', '', tweet)
+    # remove hyperlinks
+    tweet = re.sub(r'https?:\/\/.*[\r\n]*', '', tweet)
+    # remove hashtags
+    # only removing the hash # sign from the word
+    tweet = re.sub(r'#', '', tweet)
+
