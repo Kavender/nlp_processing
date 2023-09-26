@@ -1,17 +1,11 @@
 from typing import List, Dict
-import os
-import openai
-from dotenv import load_dotenv, find_dotenv
-from openai.common import get_model_encoding
-from openai.common import MODELS
-
-_ = load_dotenv(find_dotenv())
-openai.api_key  = os.getenv('OPENAI_API_KEY')
+from llm_utils.common import get_model_encoding
+from llm_utils.common import MODELS
 
 
 def get_input_tokens(messages, model):
-  encoding = get_model_encoding(model)
-  return sum(len(encoding.encode(m['content'])) for m in messages)
+    encoding = get_model_encoding(model)
+    return sum(len(encoding.encode(m["content"])) for m in messages)
 
 
 def num_tokens_from_messages(messages: List[Dict[str, str]], model="gpt-3.5-turbo-0613"):

@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from typing import Optional
 from nltk.stem import WordNetLemmatizer
 from nltk.stem.snowball import SnowballStemmer
 
@@ -14,7 +13,7 @@ def lemmatize(word: str, pos=None, method: str = "wordnet") -> str:
     if method == "wordnet":
         cleaned_word = wordnet_lemmatizer.lemmatize(word, pos) if pos else wordnet_lemmatizer.lemmatize(word)
     elif method == "snowball":
-        cleaned_word = snowball_stemmer.stem(token)
+        cleaned_word = snowball_stemmer.stem(word)
     else:
         raise Exception("Error - lemmatizer method not supported")
     return cleaned_word

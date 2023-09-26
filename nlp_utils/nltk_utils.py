@@ -1,5 +1,5 @@
-import nltk
 from nltk.corpus import wordnet as wordNet
+from collections import Counter
 
 
 def get_lemma(word):

@@ -1,9 +1,7 @@
 # coding: utf-8
 from __future__ import unicode_literals
 from typing import List, Optional
-from utils.spacy_utils import get_spacy_model
-from utils.nlp_utils import remove_punctuation
-from utils.normalize import expand_contractions
+from nlp_utils.normalize import remove_punctuation, expand_contractions
 from common.types import WordToken
 
 
@@ -15,7 +13,6 @@ class WordTokenizer:
     def __init__(
         self,
         word_splitter,
-        word_filter,
         start_tokens: Optional[List[WordToken]] = None,
         end_tokens: Optional[List[WordToken]] = None,
     ):
@@ -27,7 +24,7 @@ class WordTokenizer:
         self._end_tokens = end_tokens or []
 
     @classmethod
-    def tokenize(text: str, with_contraction: bool = False, with_punc: bool = True) -> List[WordToken]:
+    def tokenize(self, text: str, with_contraction: bool = False, with_punc: bool = True) -> List[WordToken]:
         """
         with_punc: (optional) whether to include punctuation as separate tokens.
         with_contraction: (optional) whether to replace contraction words into

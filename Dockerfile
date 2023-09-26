@@ -20,5 +20,4 @@ EXPOSE 8080
 ENV BUILD_MODE=local
 ENV SVC_NAME=nlp_toolkit
 
-CMD /bin/sh -c "python -m pytest .  -s -x"
-# RUN --mount=type=ssh,id=${SSH_HOST} git clone git@${SSH_HOST}:${SSH_PATH}
+CMD /bin/sh -c "python -m pytest ./tests  -s -x"

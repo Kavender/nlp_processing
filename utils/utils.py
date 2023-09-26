@@ -3,7 +3,24 @@
 from typing import Iterable, Set, Any, List
 from collections import Counter
 import numpy
+import string
+import random
 from sklearn.feature_extraction.text import CountVectorizer
+
+
+def generate_short_id(length: int = 8, digit_only: bool=False) -> str:
+    """Generate a short id of given length"""
+    if digit_only:
+        letters = string.digits
+    else:   
+        letters = string.ascii_lowercase + string.digits
+    return "".join(random.choice(letters) for i in range(length))
+
+
+# TODO: Add function to generate a hash of a string
+def generate_hash(string: str) -> str:
+    """Generate a hash of a string"""
+    return None
 
 
 def normalize_data_range(num: float, input_min: float, input_max: float, output_min: float, output_max: float) -> float:
@@ -14,7 +31,7 @@ def normalize_data_range(num: float, input_min: float, input_max: float, output_
     return (num - input_min) * (output_max - output_min) / (input_max - input_min) + output_min
 
 
-def rolling_pairs(seq: Iterable[Any]) -> List[Any]:
+def rolling_pairs(iterable: Iterable[Any]) -> List[Any]:
     """Get pair of items seq-> [(item0, item1), (item1, item2), ...(itemN-1, itemN)]
     """
     return list(tuple(iterable[i : i + 2]) for i in range(len(iterable) - 1))
