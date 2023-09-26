@@ -26,13 +26,12 @@ class EntityExtractor(BaseExtractor):
     """ Extract an ordered sequence of named entities (PERSON, ORG, LOC, etc.) from a ``Doc``,
     optionally filtering by entity types and frequencies"""
 
-
     def __init__(self, nlp, **kwargs) -> None:
         self.nlp = nlp
         self.ruler = EntityRuler(nlp, overwrite_ents=True)
         self.matcher = PhraseMatcher(nlp.vocab)
 
-    def set_entity_patterns(self, patterns:Union[str, List[Dict[str, str]]], label: str):
+    def set_entity_patterns(self, patterns: Union[str, List[Dict[str, str]]], label: str):
         patterns = [self.nlp.make_doc(pattern) for pattern in patterns]
         self.matcher.add(label, None, patterns)
 
@@ -81,7 +80,7 @@ class EntityExtractor(BaseExtractor):
             Recognized entities from `rule`, `ner`, `matcher` component.
 
         """
-        if len(self.ruler) > 0 and not self.nlp.has_pipe('entity_ruler'):
+        if len(self.ruler) > 0 and not self.nlp.has_pipe("entity_ruler"):
             self.nlp.add_pipe(self.ruler)
         doc = self.nlp(text)
         matches = self.matcher(doc)

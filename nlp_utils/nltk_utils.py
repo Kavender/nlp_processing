@@ -1,5 +1,5 @@
-import nltk
 from nltk.corpus import wordnet as wordNet
+from collections import Counter
 
 
 def get_lemma(word):
@@ -8,7 +8,8 @@ def get_lemma(word):
         return word
     else:
         return lemma
-    
+
+
 def get_word_synsets(word):
     return wordNet.synsets(word, pos=None)
 

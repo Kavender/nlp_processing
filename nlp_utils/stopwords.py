@@ -2,9 +2,9 @@
 from __future__ import unicode_literals
 from nltk.corpus import stopwords
 
-class NLPStopwords:
 
-    def __init__(self, language: str='English'):
+class NLPStopwords:
+    def __init__(self, language: str = "English"):
         self.stopwords = set(stopwords.words(language))
 
     def add_stopword(self, *args):
@@ -23,7 +23,6 @@ class NLPStopwords:
             raise Exception("Error - pass stopwords in list")
         for arg in args:
             self.stopwords.add(arg)
-
 
     def remove_stopwords(self, *args):
         """
@@ -44,4 +43,4 @@ class NLPStopwords:
             if arg in self.stopwords:
                 self.stopwords.remove(arg)
             else:
-                raise Exception(arg+" not in list")
+                raise Exception(arg + " not in list")

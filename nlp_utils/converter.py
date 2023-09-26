@@ -8,10 +8,11 @@ from typing import Union
 
 
 def get_hex_encoding(text: str):
-    return ' '.join(hex(ord(char)) for char in text)
+    return " ".join(hex(ord(char)) for char in text)
+
 
 def print_string_and_encoding(s):
-    print(f'{s} : {get_hex_encoding(s)}') 
+    print(f"{s} : {get_hex_encoding(s)}")
 
 
 def convert_text_to_float(text: str) -> float:
